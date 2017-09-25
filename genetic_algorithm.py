@@ -4,16 +4,11 @@ import random
 
 # Genetic programming code to minimize single-valued objective function
 def objective_function(array):
-    #of = array[:, 0] ** 2 + array[:, 1] ** 2
-    of = 100.0 * (array[:, 0] ** 2 - array[:, 1]) ** 2 + (1.0 - array[:, 0]) ** 2
-    #of = np.absolute(array[:,0])+np.absolute(array[:,1])+np.absolute(array[:,2])+np.absolute(array[:,3])+np.absolute(array[:,4])
+    of = 100.0 * (array[:, 0] ** 2 - array[:, 1]) ** 2 + (1.0 - array[:, 0]) ** 2 #Rosenbock
     return of
 
 def single_objective_function(array):
-    #of = array[0] ** 2 + array[1] ** 2
     of = 100.0*(array[0] ** 2 - array[1])**2 + (1.0-array[0])**2
-    #of = np.absolute(array[0]) + np.absolute(array[1]) + np.absolute(array[2]) + np.absolute(
-    #    array[3]) + np.absolute(array[4])
     return of
 
 def ofcalc(a, b):
@@ -94,6 +89,17 @@ def genetic_algorithm_optimization(players,of_array):
     plt.plot(dist_metric[:,0],dist_metric[:,1])
     plt.yscale('log')
     plt.plot()
+    plt.show()
+
+    #Plotting contours
+    x = np.arange(-2.048,2.048,0.1)
+    y = np.arange(-2.048, 2.048, 0.1)
+    xx, yy = np.meshgrid(x,y,sparse=False)
+    z = single_objective_function([xx,yy])
+    h = plt.contourf(x,y,z)
+    plt.title("Minima found")
+    plt.plot(best_sol[0],best_sol[1], 'ro')
+    plt.colorbar(h,format="%.2f")
     plt.show()
 
 if __name__ == "__main__":
