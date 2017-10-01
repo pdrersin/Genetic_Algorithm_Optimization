@@ -57,8 +57,10 @@ def genetic_algorithm_optimization(players,of_array):
             crossover_pairs[i,:] = c1
             crossover_pairs[i + 1,:] = c2
 
-        #Concatenate
-        crossover_pairs = crossover_pairs[0:nplayers - minval_indices, :]
+        #Concatenate randomly
+        cp_new = np.random.randint(np.shape(crossover_pairs)[0],size=nplayers-minval_indices)
+        crossover_pairs = crossover_pairs[cp_new,:]
+
         np.copyto(players,np.concatenate((new_players,crossover_pairs),axis=0))
 
         #Mutation of new generation
